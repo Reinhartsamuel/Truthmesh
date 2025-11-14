@@ -1,10 +1,11 @@
 {
-  "name": "truthmesh-seedify",
+  "name": "truthmesh",
   "scripts": {
     "dev": "bun run --hot src/index.ts"
   },
   "dependencies": {
     "hono": "^4.10.6",
+    "openai": "^6.9.0",
     "pg": "^8.16.3",
     "rss-parser": "^3.13.0"
   },
