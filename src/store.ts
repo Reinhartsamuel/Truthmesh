@@ -7,6 +7,9 @@ if (!DATABASE_URL) throw new Error("DATABASE_URL missing");
 
 export const pg = new Client({
   connectionString: DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 export async function connectDB() {

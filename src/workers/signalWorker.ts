@@ -72,7 +72,7 @@ export async function runSignalWorker() {
             relevance,
             confidence,
             summary,
-            { model: "gpt-4o-mini" },
+            JSON.stringify({ model: "gpt-4o-mini" }),
           ]
         );
 
@@ -133,10 +133,10 @@ export async function runSignalWorkerOnce() {
         category,
         relevance,
         confidence,
-        { model: "gpt-4o-mini" }
+        summary,
+        JSON.stringify({ model: "gpt-4o-mini" }),
       ]
     );
-
     await pg.query(
       `UPDATE signal_queue SET processed = true WHERE id = $1`,
       [row.queue_id]
