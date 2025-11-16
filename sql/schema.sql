@@ -30,3 +30,13 @@ CREATE TABLE IF NOT EXISTS ai_signals (
   model_metadata JSONB,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
+
+-- predictions, after calculated by AI engine
+CREATE TABLE IF NOT EXISTS predictions (
+  id SERIAL PRIMARY KEY,
+  signal_id INTEGER REFERENCES ai_signals(id),
+  category TEXT,
+  summary TEXT,
+  prediction_value FLOAT,
+  created_at TIMESTAMP DEFAULT NOW()
+);
