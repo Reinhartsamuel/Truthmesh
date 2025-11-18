@@ -79,8 +79,7 @@ export interface ApiResponse<T> {
   error?: string;
 }
 
-// const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3999';
-const API_BASE_URL = 'http://localhost:3999';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3999';
 
 class ApiClient {
   private baseUrl: string;
