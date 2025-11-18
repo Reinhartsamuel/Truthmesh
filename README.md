@@ -47,8 +47,36 @@ bun run worker.ts
 
 ## Environment Variables
 
-    PRIVATE_KEY=your_private_key
-    DATABASE_URL=postgresql://...
+   PORT=3999
+
+
+DATABASE_URL=postgresql://
+NEWSAPI_KEY=
+POLL_INTERVAL_SECONDS=15
+OPENAI_API_KEY=
+
+# private keys
+ORACLE_PRIVATE_KEY=your-private-key
+PRIVATE_KEY=your-private-key
+DEPLOYER_PRIVATE_KEY=your-private-key
+
+
+# oracle wallet address
+ORACLE_SIGNER=your-wallet-address
+ARBITRATOR=your-wallet-address
+
+# rpc and api key
+RPC_URL=your-rpc-url
+ETHERSCAN_API_KEY=your-etherscan-api-key
+
+
+# contract addresses
+PREDICTION_ORACLE_ADDRESS=
+PREDICTION_MARKET_ADDRESS=
+
+# frontend
+NEXT_PUBLIC_API_BASE_URL=
+
 
 ## Signing Output Example
 
@@ -72,38 +100,13 @@ Event type validity
 This is for hackathon/demo use. Not production-ready.
 
 
-
- ┌─────────────────────────┐
- │     Data Ingester       │
- │ - queues events         │
- │ - cleans & normalizes   │
- └───────────┬─────────────┘
-             │
-             ↓
- ┌─────────────────────────┐
- │    AI Prediction Engine │
- │ - loads ML model        │
- │ - runs prediction       │
- │ - produces probability  │
- └───────────┬─────────────┘
-             │
-             ↓
- ┌─────────────────────────┐
- │   Signing Module        │
- │ - packs struct exactly  │
- │ - hashes + signs        │
- │ - returns signature     │
- └───────────┬─────────────┘
-             │
-             ↓
- ┌─────────────────────────┐
- │   On-Chain Broadcaster  │
- │ - sends tx to contract  │
- │ - stores result in DB   │
- └─────────────────────────┘
- 
+## Run Full Workflow
+```
  forge script script/PredictionMarket.s.sol:PredictionMarketScript --rpc-url $RPC_URL --private-key $PRIVATE_KEY --etherscan-api-key $ETHERSCAN_API_KEY --broadcast --verify
+ ```
+ ```bash
  bun run scripts/resetDatabase.ts
  bun run scripts/createSampleMarkets.ts
  bun run scripts/syncMarkets.ts  
  bun run scripts/runMarketAwareWorkflow.ts
+ ```
