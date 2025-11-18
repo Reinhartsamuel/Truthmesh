@@ -101,3 +101,9 @@ This is for hackathon/demo use. Not production-ready.
  │ - sends tx to contract  │
  │ - stores result in DB   │
  └─────────────────────────┘
+ 
+ forge script script/PredictionMarket.s.sol:PredictionMarketScript --rpc-url $RPC_URL --private-key $PRIVATE_KEY --etherscan-api-key $ETHERSCAN_API_KEY --broadcast --verify
+ bun run scripts/resetDatabase.ts
+ bun run scripts/createSampleMarkets.ts
+ bun run scripts/syncMarkets.ts  
+ bun run scripts/runMarketAwareWorkflow.ts

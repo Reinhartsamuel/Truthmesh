@@ -16,7 +16,8 @@ contract PredictionMarketScript is Script {
         address arbitrator = vm.envAddress("ARBITRATOR");
         uint256 disputeBond = vm.envUint("DISPUTE_BOND");
         uint256 minBetAmount = vm.envUint("MIN_BET_AMOUNT");
-        address existingOracle = vm.envAddress("EXISTING_ORACLE");
+        // address existingOracle = vm.envAddress("EXISTING_ORACLE");
+        address existingOracle = address(0);
 
         // Set defaults if not provided
         if (oracleSigner == address(0)) {

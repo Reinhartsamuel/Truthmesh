@@ -9,6 +9,7 @@ interface Prediction {
   confidence: number
   summary: string
   timestamp: number
+  chain_tx_hash?:string
 }
 
 interface PredictionCardProps {

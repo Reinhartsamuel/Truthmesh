@@ -64,3 +64,9 @@ $ forge --help
 $ anvil --help
 $ cast --help
 ```
+
+source ../.env
+echo $ETHERSCAN_API_KEY
+echo $ARBITRATOR
+echo $PRIVATE_KEY
+forge script script/PredictionMarket.s.sol:PredictionMarketScript --rpc-url $RPC_URL --private-key $PRIVATE_KEY --etherscan-api-key $ETHERSCAN_API_KEY --broadcast --verify

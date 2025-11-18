@@ -1,7 +1,8 @@
 {
   "name": "truthmesh",
   "scripts": {
-    "dev": "bun run --hot src/index.ts"
+    "dev": "bun run --hot src/server.ts",
+    "reset-db": "bun run scripts/resetDatabase.ts"
   },
   "dependencies": {
     "ethers": "^6.15.0",

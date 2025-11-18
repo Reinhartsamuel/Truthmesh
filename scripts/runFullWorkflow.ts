@@ -56,6 +56,16 @@ async function ingestSampleEvents() {
       text: "ETH drops 3% amid whale movements",
       content_hash: "hash_" + Math.random().toString(36).slice(2, 12),
     },
+    {
+      source: "test",
+      text: "SEC approves new crypto regulations for institutional investors",
+      content_hash: "hash_" + Math.random().toString(36).slice(2, 12),
+    },
+    {
+      source: "test",
+      text: "Major Ethereum L2 protocol announces token airdrop to users",
+      content_hash: "hash_" + Math.random().toString(36).slice(2, 12),
+    },
   ];
 
   const queued: Array<{ rawEventId: number | null }> = [];
@@ -156,9 +166,9 @@ async function signAndSubmitLatestPrediction() {
 
   const wallet = new ethers.Wallet(submitterPk, provider);
 
-  const contractAddress = process.env.ORACLE_CONTRACT_ADDRESS;
+  const contractAddress = process.env.PREDICTION_ORACLE_ADDRESS;
   if (!contractAddress) {
-    throw new Error("ORACLE_CONTRACT_ADDRESS must be set in env to submit the prediction");
+    throw new Error("PREDICTION_ORACLE_ADDRESS must be set in env to submit the prediction");
   }
 
   const abi = ["function submitPrediction(uint256 id,uint256 prediction,uint256 confidence,bytes signature) external"];

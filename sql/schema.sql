@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS ai_signals (
   relevance NUMERIC,
   confidence NUMERIC,
   summary TEXT,
+  reasoning TEXT,
   model_metadata JSONB,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
@@ -39,4 +40,31 @@ CREATE TABLE IF NOT EXISTS predictions (
   summary TEXT,
   prediction_value FLOAT,
   created_at TIMESTAMP DEFAULT NOW()
+);
+
+
+
+-- prediction markets (questions) from smart contracts
+CREATE TABLE IF NOT EXISTS markets (
+  id BIGSERIAL PRIMARY KEY,
+  contract_market_id BIGINT NOT NULL,
+  question TEXT NOT NULL,
+  lock_timestamp TIMESTAMP WITH TIME ZONE,
+  resolve_timestamp TIMESTAMP WITH TIME ZONE,
+  state TEXT DEFAULT 'Open',
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
+  UNIQUE(contract_market_id)
+);
+
+-- links AI predictions to specific markets
+CREATE TABLE IF NOT EXISTS market_predictions (
+  id BIGSERIAL PRIMARY KEY,
+  market_id BIGINT REFERENCES markets(id) ON DELETE CASCADE,
+  prediction_id INTEGER REFERENCES predictions(id) ON DELETE CASCADE,
+  market_outcome TEXT, -- 'Yes' or 'No' based on prediction threshold
+  confidence NUMERIC,
+  submitted_to_chain BOOLEAN DEFAULT false,
+  chain_tx_hash TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
 );

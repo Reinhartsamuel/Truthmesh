@@ -1,5 +1,5 @@
 import { createConfig, http } from 'wagmi'
-import { mainnet, sepolia, localhost } from 'wagmi/chains'
+import { mainnet, sepolia, localhost, bscTestnet } from 'wagmi/chains'
 import { getDefaultConfig } from '@rainbow-me/rainbowkit'
 
 // Contract addresses (update these with your deployed contract addresses)
@@ -156,7 +156,7 @@ export const PREDICTION_MARKET_ABI = [
 ] as const
 
 // Configure chains
-export const chains = [mainnet, sepolia, localhost] as const
+export const chains = [mainnet, sepolia,bscTestnet, localhost] as const
 
 // Create wagmi config
 export const config = getDefaultConfig({
@@ -166,6 +166,7 @@ export const config = getDefaultConfig({
   transports: {
     [mainnet.id]: http(),
     [sepolia.id]: http(),
+    [bscTestnet.id]: http(),
     [localhost.id]: http('http://127.0.0.1:8545'),
   },
   ssr: true,

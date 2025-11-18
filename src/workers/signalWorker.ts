@@ -58,13 +58,13 @@ export async function runSignalWorker() {
         const { category, relevance } = await classifyText(text);
 
         // 2) Short LLM reasoning summary
-        const { summary, confidence } = await refineSignal(text, category);
+        const { summary, confidence, reasoning } = await refineSignal(text, category);
 
         // 3) Insert AI signal (idempotent)
         await pg.query(
           `INSERT INTO ai_signals
-           (raw_event_id, category, relevance, confidence, summary, model_metadata)
-           VALUES ($1,$2,$3,$4,$5,$6)
+           (raw_event_id, category, relevance, confidence, summary, reasoning, model_metadata)
+           VALUES ($1,$2,$3,$4,$5,$6,$7)
            ON CONFLICT (raw_event_id) DO NOTHING`,
           [
             raw_id,
@@ -72,6 +72,7 @@ export async function runSignalWorker() {
             relevance,
             confidence,
             summary,
+            reasoning,
             JSON.stringify({ model: "gpt-4o-mini" }),
           ]
         );
@@ -123,17 +124,18 @@ export async function runSignalWorkerOnce() {
     const rawText = row.text;
 
     const { category, relevance } = await classifyText(rawText);
-    const { summary, confidence } = await refineSignal(rawText, category);
+    const { summary, confidence, reasoning } = await refineSignal(rawText, category);
 
     await pg.query(
-      `INSERT INTO ai_signals (raw_event_id, category, relevance, confidence, summary, model_metadata)
-       VALUES ($1,$2,$3,$4,$5,$6)`,
+      `INSERT INTO ai_signals (raw_event_id, category, relevance, confidence, summary, reasoning, model_metadata)
+       VALUES ($1,$2,$3,$4,$5,$6,$7)`,
       [
         row.raw_id,
         category,
         relevance,
         confidence,
         summary,
+        reasoning,
         JSON.stringify({ model: "gpt-4o-mini" }),
       ]
     );
