@@ -146,7 +146,7 @@ export default function Home() {
                 className="flex items-center space-x-2 px-4 py-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
               >
                 <Database className="w-4 h-4" />
-                <span className="text-sm font-medium">Database</span>
+                <span className="text-lg  font-bold">Open AI ORACLE Database</span>
               </Link>
               <ConnectButton />
             </div>
@@ -157,7 +157,7 @@ export default function Home() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {!isConnected ? (
-          <div className="text-center py-16">
+          <div className="text-center py-16 ">
             <div className="max-w-md mx-auto">
               <Brain className="w-16 h-16 text-blue-500 mx-auto mb-4" />
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
@@ -166,7 +166,10 @@ export default function Home() {
               <p className="text-slate-600 dark:text-slate-400 mb-8">
                 Connect your wallet to access the TruthMesh AI Oracle dashboard and explore real-time predictions powered by artificial intelligence.
               </p>
+              <div className='flex w-full justify-center'>
               <ConnectButton />
+              </div>
+
             </div>
           </div>
         ) : (
